@@ -6,140 +6,101 @@
 <title>The Pass</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     LANDSCAPE LOCK
-     If the browser is in portrait we
-     rotate the entire page 90° via CSS.
-     The Screen Orientation API lock is
-     attempted first (Android Chrome).
-  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   #portrait-overlay {
-    display: none;
-    position: fixed; inset: 0; z-index: 9999;
-    background: #1a120a;
-    flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 20px;
+    display: none; position: fixed; inset: 0; z-index: 9999;
+    background: #1a120a; flex-direction: column;
+    align-items: center; justify-content: center; gap: 20px;
   }
   #portrait-overlay .rotate-icon {
     font-size: 3.5rem;
     animation: spin90 1.4s ease-in-out infinite alternate;
   }
   @keyframes spin90 {
-    from { transform: rotate(0deg);  }
+    from { transform: rotate(0deg); }
     to   { transform: rotate(90deg); }
   }
   #portrait-overlay p {
-    font-family: 'Bebas Neue', cursive;
-    color: #c9b88a; font-size: 1.2rem;
-    letter-spacing: 0.15em; text-align: center;
+    font-family: 'Bebas Neue', cursive; color: #c9b88a;
+    font-size: 1.2rem; letter-spacing: 0.15em; text-align: center;
   }
 
-  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     BASE
-  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-  :root {
-    --paper:  #f5eed8;
-    --crease: #c9b88a;
-    --accent: #c0392b;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html, body {
-    width: 100%; height: 100%;
-    overflow: hidden; /* no scroll — everything fits in viewport */
-  }
-
+  :root { --paper:#f5eed8; --crease:#c9b88a; --accent:#c0392b; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { height:100%; }
   body {
-    background: #1a120a;
+    height:100%; overflow:hidden;
+    background:#1a120a;
     background-image:
       radial-gradient(ellipse at 20% 50%, rgba(60,35,10,0.6) 0%, transparent 60%),
       radial-gradient(ellipse at 80% 50%, rgba(30,20,5,0.4) 0%, transparent 60%);
-    font-family: 'Courier Prime', monospace;
-    display: flex; flex-direction: column;
-    align-items: center;
+    font-family:'Courier Prime',monospace;
+    display:flex; flex-direction:column; align-items:center;
   }
 
-  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     HEADER
-  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   header {
-    width: 100%; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    padding: 6px 20px 5px;
-    border-bottom: 1px solid rgba(201,184,138,0.12);
+    width:100%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    padding:6px 20px 5px;
+    border-bottom:1px solid rgba(201,184,138,0.12);
   }
   .title-main {
-    font-family: 'Bebas Neue', cursive;
-    font-size: clamp(1.3rem, 3.5vw, 2rem);
-    color: var(--paper); letter-spacing: 0.18em;
-    text-shadow: 3px 3px 0 var(--accent); line-height: 1;
+    font-family:'Bebas Neue',cursive;
+    font-size:clamp(1.3rem,3.5vw,2rem);
+    color:var(--paper); letter-spacing:0.18em;
+    text-shadow:3px 3px 0 var(--accent); line-height:1;
   }
 
-  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     VIEWER (main screen)
-  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   #viewer-screen {
-    display: flex; flex-direction: column;
-    align-items: center;
-    width: 100%; flex: 1;
-    padding: 6px 10px 8px; gap: 6px;
-    min-height: 0; /* allow flex children to shrink */
+    display:flex; flex-direction:column; align-items:center;
+    width:100%; flex:1; min-height:0;
+    padding:6px 10px 8px; gap:6px;
   }
 
   .comic-stage {
-    position: relative;
-    width: 100%; max-width: 1200px;
-    flex: 1; min-height: 0;
-    display: flex; align-items: center; justify-content: center;
+    position:relative; width:100%; max-width:1200px;
+    flex:1; min-height:0;
+    display:flex; align-items:center; justify-content:center;
   }
 
   .nav-btn {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    z-index: 20; width: 40px; height: 58px;
-    background: rgba(26,16,8,0.5);
-    border: 2px solid rgba(201,184,138,0.25);
-    color: var(--paper); font-size: 1.7rem;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-family: 'Bebas Neue', cursive;
-    transition: all 0.18s; backdrop-filter: blur(4px);
-    user-select: none; border-radius: 3px;
+    position:absolute; top:50%; transform:translateY(-50%);
+    z-index:20; width:40px; height:58px;
+    background:rgba(26,16,8,0.5);
+    border:2px solid rgba(201,184,138,0.25);
+    color:var(--paper); font-size:1.7rem;
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    font-family:'Bebas Neue',cursive;
+    transition:all 0.18s; backdrop-filter:blur(4px);
+    user-select:none; border-radius:3px;
   }
-  .nav-btn:hover  { background: rgba(192,57,43,0.7); border-color: var(--accent); }
-  .nav-btn:active { transform: translateY(-50%) scale(0.94); }
-  #prev-btn { left: 4px; }
-  #next-btn { right: 4px; }
+  .nav-btn:hover  { background:rgba(192,57,43,0.7); border-color:var(--accent); }
+  .nav-btn:active { transform:translateY(-50%) scale(0.94); }
+  #prev-btn { left:4px; }
+  #next-btn { right:4px; }
 
   .panel-wrapper {
-    width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
+    width:100%; height:100%;
+    display:flex; align-items:center; justify-content:center;
   }
 
+  /* Panel sized explicitly by JS — no aspect-ratio CSS trick */
   #comic-panel {
-    position: relative;
-    /* fill available height, constrain by width */
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    background: #000;
-    border: 2px solid rgba(201,184,138,0.18);
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.8), 0 12px 40px rgba(0,0,0,0.7);
-    overflow: hidden;
+    position:relative; flex-shrink:0;
+    background:#000;
+    border:2px solid rgba(201,184,138,0.18);
+    box-shadow:0 0 0 1px rgba(0,0,0,0.8), 0 12px 40px rgba(0,0,0,0.7);
+    overflow:hidden;
   }
-
-  /* vignette */
   #comic-panel::before {
     content:''; position:absolute; inset:0; z-index:5;
-    background: radial-gradient(ellipse at center, transparent 55%, rgba(10,5,0,0.5) 100%);
+    background:radial-gradient(ellipse at center, transparent 55%, rgba(10,5,0,0.5) 100%);
     pointer-events:none;
   }
 
   .panel-img {
-    position:absolute; inset:0;
-    width:100%; height:100%;
+    position:absolute; inset:0; width:100%; height:100%;
     object-fit:contain; display:block;
-    opacity:0; transition: opacity 0.35s ease;
+    opacity:0; transition:opacity 0.35s ease;
   }
   .panel-img.active  { opacity:1; }
   .panel-img.leaving { opacity:0; }
@@ -152,7 +113,7 @@
 
   #color-grade {
     position:absolute; inset:0; z-index:4; pointer-events:none; display:none;
-    background: linear-gradient(160deg,
+    background:linear-gradient(160deg,
       rgba(255,190,80,0.13) 0%, rgba(220,140,40,0.10) 50%, rgba(180,100,20,0.08) 100%);
     mix-blend-mode:multiply;
   }
@@ -164,15 +125,10 @@
   }
   #smoke-canvas.active { display:block; }
 
-  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     BOTTOM BAR
-  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   .bottom-bar {
-    width:100%; max-width:1200px;
-    display:flex; align-items:center;
-    justify-content:space-between;
+    width:100%; max-width:1200px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:space-between;
     gap:8px; flex-wrap:nowrap; padding:0 4px;
-    flex-shrink: 0;
   }
   .left-controls, .right-controls {
     display:flex; align-items:center; gap:6px; flex-shrink:0;
@@ -195,14 +151,13 @@
   .dot {
     width:7px; height:7px;
     border:1.5px solid rgba(201,184,138,0.35);
-    border-radius:50%; cursor:pointer;
-    transition:all 0.2s; flex-shrink:0;
+    border-radius:50%; cursor:pointer; transition:all 0.2s; flex-shrink:0;
   }
   .dot.active {
     background:var(--accent); border-color:var(--accent);
     box-shadow:0 0 4px rgba(192,57,43,0.6); transform:scale(1.2);
   }
-  .dot.has-smoke { outline: 1px solid rgba(255,200,80,0.35); outline-offset:1px; }
+  .dot.has-smoke { outline:1px solid rgba(255,200,80,0.35); outline-offset:1px; }
   .dot:hover { border-color:var(--paper); }
 
   .icon-btn {
@@ -211,15 +166,13 @@
     border:1px solid rgba(201,184,138,0.22);
     color:rgba(201,184,138,0.55); border-radius:3px;
     cursor:pointer; transition:all 0.18s;
-    display:flex; align-items:center; line-height:1;
-    flex-shrink:0;
+    display:flex; align-items:center; line-height:1; flex-shrink:0;
   }
   .icon-btn:hover { border-color:rgba(201,184,138,0.6); color:var(--paper); }
   .icon-btn.on {
     background:rgba(192,57,43,0.22); border-color:var(--accent);
     color:var(--paper); box-shadow:0 0 6px rgba(192,57,43,0.3);
   }
-
   .speed-wrap {
     display:flex; align-items:center; gap:4px;
     opacity:0; pointer-events:none; transition:opacity 0.25s; flex-shrink:0;
@@ -229,22 +182,16 @@
     width:55px; height:3px; accent-color:var(--accent); cursor:pointer;
   }
 
-  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     CALIBRATION MODE
-     Activated by ?calibrate in URL
-  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  /* CALIBRATION */
   #calibrate-ui {
-    display:none;
-    position:fixed; inset:0; z-index:1000;
-    flex-direction:column; align-items:center;
-    background:#1a120a;
+    display:none; position:fixed; inset:0; z-index:1000;
+    flex-direction:column; align-items:center; background:#1a120a;
   }
   #calibrate-ui.active { display:flex; }
-
   #cal-header {
-    width:100%; padding:8px 16px;
+    width:100%; padding:8px 16px; flex-shrink:0;
     display:flex; align-items:center; justify-content:space-between;
-    border-bottom:1px solid rgba(201,184,138,0.15); flex-shrink:0;
+    border-bottom:1px solid rgba(201,184,138,0.15);
   }
   #cal-title {
     font-family:'Bebas Neue',cursive; color:var(--crease);
@@ -256,31 +203,27 @@
   }
   #cal-skip-btn, #cal-next-btn {
     font-family:'Bebas Neue',cursive; font-size:0.9rem;
-    letter-spacing:0.1em; padding:6px 16px; border:none;
-    border-radius:2px; cursor:pointer; transition:all 0.15s;
+    letter-spacing:0.1em; padding:6px 16px;
+    border:none; border-radius:2px; cursor:pointer;
   }
-  #cal-skip-btn { background:transparent; color:rgba(201,184,138,0.5); border:1px solid rgba(201,184,138,0.2); }
-  #cal-skip-btn:hover { color:var(--paper); }
+  #cal-skip-btn {
+    background:transparent; color:rgba(201,184,138,0.5);
+    border:1px solid rgba(201,184,138,0.2);
+  }
   #cal-next-btn { background:var(--accent); color:#fff; margin-left:8px; }
-  #cal-next-btn:hover { background:#a93226; }
-
   #cal-img-wrap {
-    flex:1; width:100%; min-height:0;
-    position:relative; cursor:crosshair;
-    display:flex; align-items:center; justify-content:center;
+    flex:1; width:100%; min-height:0; position:relative;
+    cursor:crosshair; display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
   }
   #cal-img {
     max-width:100%; max-height:100%;
-    object-fit:contain; display:block; pointer-events:none;
-    user-select:none;
+    object-fit:contain; display:block;
+    pointer-events:none; user-select:none;
   }
-
-  /* crosshair pin */
   #cal-pin {
-    position:absolute; display:none;
-    width:24px; height:24px;
-    transform:translate(-50%,-50%);
-    pointer-events:none;
+    position:absolute; display:none; width:24px; height:24px;
+    transform:translate(-50%,-50%); pointer-events:none;
   }
   #cal-pin::before, #cal-pin::after {
     content:''; position:absolute; background:rgba(255,200,80,0.92);
@@ -291,11 +234,10 @@
     position:absolute; inset:4px;
     border:2px solid rgba(255,200,80,0.65); border-radius:50%;
   }
-
   #cal-footer {
-    width:100%; padding:8px 16px;
-    display:flex; align-items:center; justify-content:space-between;
-    flex-shrink:0; flex-wrap:wrap; gap:8px;
+    width:100%; padding:8px 16px; flex-shrink:0;
+    display:flex; align-items:center;
+    justify-content:space-between; flex-wrap:wrap; gap:8px;
   }
   #cal-coords {
     font-family:'Courier Prime',monospace; font-size:0.8rem;
@@ -303,19 +245,17 @@
   }
   #cal-output-box {
     width:100%; background:rgba(0,0,0,0.5);
-    border:1px solid rgba(201,184,138,0.2);
-    border-radius:3px; padding:10px 14px;
+    border:1px solid rgba(201,184,138,0.2); border-radius:3px;
+    padding:10px 14px;
     font-family:'Courier Prime',monospace; font-size:0.78rem;
-    color:rgba(201,184,138,0.8); white-space:pre; overflow-x:auto;
-    display:none; flex-shrink:0;
+    color:rgba(201,184,138,0.85); white-space:pre; overflow-x:auto; display:none;
   }
   #cal-output-box.visible { display:block; }
   #cal-copy-btn {
     font-family:'Bebas Neue',cursive; font-size:0.85rem;
     letter-spacing:0.1em; padding:5px 14px;
     background:rgba(192,57,43,0.3); border:1px solid var(--accent);
-    color:var(--paper); border-radius:2px; cursor:pointer;
-    display:none;
+    color:var(--paper); border-radius:2px; cursor:pointer; display:none;
   }
   #cal-copy-btn.visible { display:block; }
   #cal-hint {
@@ -326,41 +266,32 @@
 </head>
 <body>
 
-<!-- Portrait warning overlay -->
 <div id="portrait-overlay">
   <div class="rotate-icon">📱</div>
   <p>Please rotate your device<br>to landscape</p>
 </div>
 
-<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     CALIBRATION UI (hidden unless ?calibrate)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <div id="calibrate-ui">
   <div id="cal-header">
-    <span id="cal-title">💨 SMOKE CALIBRATOR</span>
+    <span id="cal-title">SMOKE CALIBRATOR</span>
     <span id="cal-frame-label">Frame 1 / 5</span>
     <div>
       <button id="cal-skip-btn" onclick="calSkip()">Skip</button>
-      <button id="cal-next-btn" onclick="calNext()">Next →</button>
+      <button id="cal-next-btn" onclick="calNext()">Next</button>
     </div>
   </div>
-
   <div id="cal-img-wrap">
-    <img id="cal-img" src="" alt="calibrate frame">
+    <img id="cal-img" src="" alt="">
     <div id="cal-pin"><div class="pin-ring"></div></div>
   </div>
-
   <div id="cal-footer">
-    <span id="cal-coords">tap the cigarette tip ↑</span>
-    <button id="cal-copy-btn" onclick="calCopy()">⎘ Copy Config</button>
+    <span id="cal-coords">tap the cigarette tip in the image above</span>
+    <button id="cal-copy-btn" onclick="calCopy()">Copy Config</button>
     <div id="cal-output-box"></div>
-    <div id="cal-hint">Tap to place smoke origin &nbsp;·&nbsp; tap again to reposition &nbsp;·&nbsp; coordinates are % of image content (not screen)</div>
+    <div id="cal-hint">Tap to place smoke origin · tap again to reposition · coordinates are % of image content</div>
   </div>
 </div>
 
-<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     MAIN VIEWER
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <header><div class="title-main">The Pass</div></header>
 
 <div id="viewer-screen">
@@ -368,7 +299,6 @@
     <button class="nav-btn" id="prev-btn" onclick="nudge(-1)">&#8249;</button>
     <div class="panel-wrapper">
       <div id="comic-panel">
-        <!-- images injected by JS -->
         <canvas id="grain-canvas"></canvas>
         <div id="color-grade"></div>
         <canvas id="smoke-canvas"></canvas>
@@ -376,151 +306,157 @@
     </div>
     <button class="nav-btn" id="next-btn" onclick="nudge(1)">&#8250;</button>
   </div>
-
   <div class="bottom-bar">
     <div class="left-controls">
       <div class="scene-counter" id="scene-counter">1 / 5</div>
-      <div class="dir-indicator" id="dir-indicator">▶</div>
+      <div class="dir-indicator" id="dir-indicator">&#9654;</div>
     </div>
     <div class="dots-row" id="dots-row"></div>
     <div class="right-controls">
-      <button class="icon-btn" id="loop-btn"  onclick="toggleLoop()"  title="Boomerang loop">⟳</button>
+      <button class="icon-btn" id="loop-btn"  onclick="toggleLoop()"  title="Boomerang loop">&#10227;</button>
       <div class="speed-wrap" id="speed-wrap">
         <input type="range" class="speed-slider" id="speed-slider" min="300" max="2500" value="900" step="100">
       </div>
-      <button class="icon-btn" id="film-btn"  onclick="toggleFilm()"  title="Retro film filter">🎞</button>
-      <button class="icon-btn" id="smoke-btn" onclick="toggleSmoke()" title="Cigarette smoke">💨</button>
+      <button class="icon-btn" id="film-btn"  onclick="toggleFilm()"  title="Film filter">&#127902;</button>
+      <button class="icon-btn" id="smoke-btn" onclick="toggleSmoke()" title="Smoke">&#128168;</button>
     </div>
   </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════════════
-//  ★ CONFIGURATION — edit these two blocks after calibrating ★
-// ═══════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════
+//  CONFIGURATION  — edit after calibrating
+// ═══════════════════════════════════════
+var IMAGE_FILES = ['1.png','2.png','3.png','4.png','5.png'];
 
-// Image filenames in story order (relative to this HTML file)
-const IMAGE_FILES = [
-  '1.png',
-  '2.png',
-  '3.png',
-  '4.png',
-  '5.png',
+// Smoke origin per frame — fraction of image content (0,0)=top-left (1,1)=bottom-right
+// null = no smoke. Paste calibrated values here after running ?calibrate
+var SMOKE_POINTS = [
+  null,
+  null,
+  null,
+  null,
+  null
 ];
-
-// Smoke origin per frame as fraction of IMAGE CONTENT
-// (0,0) = top-left of image, (1,1) = bottom-right of image
-// Set to null for no smoke on that frame
-// Run ?calibrate in URL to generate these values
-const SMOKE_POINTS = [
-  null,   // frame 1 — set after calibration
-  null,   // frame 2
-  null,   // frame 3
-  null,   // frame 4
-  null,   // frame 5
-];
-
-// ═══════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════
 //  END CONFIGURATION
-// ═══════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════
 
-// ── STATE ──
-let currentIndex  = 0;
-let direction     = 1;
-let looping       = false;
-let loopTimer     = null;
-let filmMode      = false;
-let smokeMode     = false;
-let transitioning = false;
-let grainAnim     = null;
-let smokeAnim     = null;
-let smokeParticles = [];
+var currentIndex  = 0;
+var direction     = 1;
+var looping       = false;
+var loopTimer     = null;
+var filmMode      = false;
+var smokeMode     = false;
+var transitioning = false;
+var grainAnim     = null;
+var smokeAnim     = null;
+var smokeParticles = [];
 
-// ── LANDSCAPE LOCK ──
+// ── LANDSCAPE ──
 function enforceLandscape() {
-  // Try native API first (Android Chrome)
   if (screen.orientation && screen.orientation.lock) {
-    screen.orientation.lock('landscape').catch(() => {});
+    screen.orientation.lock('landscape').catch(function(){});
   }
   checkOrientation();
 }
-
 function checkOrientation() {
-  const isPortrait = window.innerHeight > window.innerWidth;
-  document.getElementById('portrait-overlay').style.display =
-    isPortrait ? 'flex' : 'none';
+  var p = window.innerHeight > window.innerWidth;
+  document.getElementById('portrait-overlay').style.display = p ? 'flex' : 'none';
 }
-
-window.addEventListener('resize',           checkOrientation);
+window.addEventListener('resize', checkOrientation);
 window.addEventListener('orientationchange', checkOrientation);
 enforceLandscape();
 
-// ── INIT ──
-const isCalibrate = new URLSearchParams(location.search).has('calibrate');
+// ── PANEL SIZING — explicit pixel dimensions, 16:10 ──
+function sizePanel() {
+  var stage = document.querySelector('.comic-stage');
+  var panel = document.getElementById('comic-panel');
+  if (!stage || !panel) return;
+  var sw = stage.offsetWidth;
+  var sh = stage.offsetHeight;
+  if (sw < 10 || sh < 10) return;
+  var ratio = 16/10;
+  var w, h;
+  if (sw/sh > ratio) { h = sh; w = h*ratio; }
+  else               { w = sw; h = w/ratio; }
+  panel.style.width  = Math.floor(w)+'px';
+  panel.style.height = Math.floor(h)+'px';
+}
 
-window.addEventListener('DOMContentLoaded', () => {
-  if (isCalibrate) {
-    initCalibrate();
-  } else {
-    initViewer();
-  }
+window.addEventListener('resize', function() {
+  sizePanel();
+  if (filmMode || smokeMode) resizeCanvases();
 });
 
-// ═══════════════════════════════════════════════════════════════
-//  VIEWER
-// ═══════════════════════════════════════════════════════════════
-function initViewer() {
-  const panel = document.getElementById('comic-panel');
+// ── BOOT — script is at end of body so DOM is ready ──
+var isCalibrate = (location.search.indexOf('calibrate') !== -1);
+if (isCalibrate) {
+  initCalibrate();
+} else {
+  initViewer();
+}
 
-  IMAGE_FILES.forEach((src, i) => {
-    const el = document.createElement('img');
+// ═══════════════════════════════════════
+//  VIEWER
+// ═══════════════════════════════════════
+function initViewer() {
+  var panel = document.getElementById('comic-panel');
+
+  IMAGE_FILES.forEach(function(src, i) {
+    var el = document.createElement('img');
     el.src = src;
-    el.className = 'panel-img' + (i === 0 ? ' active' : '');
-    el.alt = `Scene ${i+1}`;
+    el.className = 'panel-img' + (i===0 ? ' active' : '');
+    el.alt = 'Scene '+(i+1);
     panel.insertBefore(el, document.getElementById('grain-canvas'));
   });
 
-  const dotsRow = document.getElementById('dots-row');
-  IMAGE_FILES.forEach((_, i) => {
-    const dot = document.createElement('div');
-    const hasPt = SMOKE_POINTS[i] !== null;
-    dot.className = 'dot' + (i===0?' active':'') + (hasPt?' has-smoke':'');
-    dot.onclick = () => goTo(i);
+  var dotsRow = document.getElementById('dots-row');
+  IMAGE_FILES.forEach(function(_, i) {
+    var dot = document.createElement('div');
+    var hasPt = SMOKE_POINTS[i] !== null;
+    dot.className = 'dot'+(i===0?' active':'')+(hasPt?' has-smoke':'');
+    (function(idx){ dot.onclick = function(){ goTo(idx); }; })(i);
     dotsRow.appendChild(dot);
   });
 
-  updateUI();
-  resizeCanvases();
+  // Size the panel after a tick to let layout settle
+  setTimeout(function() {
+    sizePanel();
+    resizeCanvases();
+    updateUI();
+  }, 0);
 }
 
-// ── NAVIGATION ──
 function nudge(pressDir) {
   if (transitioning || IMAGE_FILES.length < 2) return;
-  const last = IMAGE_FILES.length - 1;
-  if      (currentIndex === 0)    { direction = 1;        goTo(1); }
-  else if (currentIndex === last) { direction = -1;       goTo(last-1); }
-  else                            { direction = pressDir; goTo(currentIndex + direction); }
+  var last = IMAGE_FILES.length-1;
+  if      (currentIndex===0)    { direction=1;        goTo(1); }
+  else if (currentIndex===last) { direction=-1;       goTo(last-1); }
+  else                          { direction=pressDir; goTo(currentIndex+direction); }
 }
 
 function goTo(idx) {
-  if (idx < 0 || idx >= IMAGE_FILES.length || idx === currentIndex || transitioning) return;
+  if (idx<0||idx>=IMAGE_FILES.length||idx===currentIndex||transitioning) return;
   transitioning = true;
-  const imgs = document.querySelectorAll('.panel-img');
+  var imgs = document.querySelectorAll('.panel-img');
   imgs[currentIndex].classList.add('leaving');
   imgs[currentIndex].classList.remove('active');
-  const prev = currentIndex;
+  var prev = currentIndex;
   currentIndex = idx;
-  requestAnimationFrame(() => imgs[currentIndex].classList.add('active'));
-  setTimeout(() => { imgs[prev].classList.remove('leaving'); transitioning = false; }, 370);
+  requestAnimationFrame(function(){ imgs[currentIndex].classList.add('active'); });
+  setTimeout(function(){ imgs[prev].classList.remove('leaving'); transitioning=false; }, 370);
   updateUI();
 }
 
 function updateUI() {
-  document.getElementById('scene-counter').textContent = `${currentIndex+1} / ${IMAGE_FILES.length}`;
-  const d = document.getElementById('dir-indicator');
-  d.textContent = direction === 1 ? '▶' : '◀';
-  d.classList.toggle('rev', direction === -1);
-  document.querySelectorAll('.dot').forEach((dot,i) => dot.classList.toggle('active', i===currentIndex));
+  document.getElementById('scene-counter').textContent = (currentIndex+1)+' / '+IMAGE_FILES.length;
+  var d = document.getElementById('dir-indicator');
+  d.innerHTML = direction===1 ? '&#9654;' : '&#9664;';
+  d.classList.toggle('rev', direction===-1);
+  document.querySelectorAll('.dot').forEach(function(dot,i){
+    dot.classList.toggle('active', i===currentIndex);
+  });
 }
 
 // ── LOOP ──
@@ -528,27 +464,28 @@ function toggleLoop() {
   looping = !looping;
   document.getElementById('loop-btn').classList.toggle('on', looping);
   document.getElementById('speed-wrap').classList.toggle('visible', looping);
-  if (looping) scheduleLoop(); else { clearTimeout(loopTimer); loopTimer = null; }
+  if (looping) scheduleLoop();
+  else { clearTimeout(loopTimer); loopTimer=null; }
 }
 function scheduleLoop() {
   if (!looping) return;
-  const spd = parseInt(document.getElementById('speed-slider').value);
-  loopTimer = setTimeout(() => { loopStep(); scheduleLoop(); }, spd);
+  var spd = parseInt(document.getElementById('speed-slider').value);
+  loopTimer = setTimeout(function(){ loopStep(); scheduleLoop(); }, spd);
 }
 function loopStep() {
   if (transitioning) return;
-  const last = IMAGE_FILES.length - 1;
-  if      (currentIndex === last && direction === 1)  direction = -1;
-  else if (currentIndex === 0    && direction === -1) direction = 1;
-  goTo(currentIndex + direction);
+  var last = IMAGE_FILES.length-1;
+  if      (currentIndex===last && direction===1)  direction=-1;
+  else if (currentIndex===0    && direction===-1) direction=1;
+  goTo(currentIndex+direction);
 }
 
-// ── FILM FILTER ──
+// ── FILM ──
 function toggleFilm() {
   filmMode = !filmMode;
   document.getElementById('film-btn').classList.toggle('on', filmMode);
   document.getElementById('color-grade').classList.toggle('active', filmMode);
-  const panel = document.getElementById('comic-panel');
+  var panel = document.getElementById('comic-panel');
   if (filmMode) {
     resizeCanvases();
     document.getElementById('grain-canvas').classList.add('active');
@@ -556,62 +493,58 @@ function toggleFilm() {
   } else {
     document.getElementById('grain-canvas').classList.remove('active');
     stopFilmAnimation();
-    panel.style.filter = '';
-    panel.style.transform = '';
+    panel.style.filter=''; panel.style.transform='';
   }
 }
 
 function startFilmAnimation() {
-  const canvas = document.getElementById('grain-canvas');
-  const ctx = canvas.getContext('2d');
-  const panel = document.getElementById('comic-panel');
-  let frame = 0, flickerVal = 1.0, jitterY = 0, scratches = [];
+  var canvas = document.getElementById('grain-canvas');
+  var ctx = canvas.getContext('2d');
+  var panel = document.getElementById('comic-panel');
+  var frame=0, flickerVal=1.0, jitterY=0, scratches=[];
 
   function tick() {
     if (!filmMode) return;
     frame++;
-    const w = canvas.width, h = canvas.height;
-    const imageData = ctx.createImageData(w, h);
-    const data = imageData.data;
-    for (let i = 0; i < data.length; i += 4) {
-      if (Math.random() > 0.30) { data[i+3]=0; continue; }
-      const base = 100 + (Math.random()*80)|0;
-      data[i]   = Math.min(255, base+28);
-      data[i+1] = Math.min(255, base+14);
-      data[i+2] = Math.max(0,   base-18);
-      data[i+3] = 28 + (Math.random()*20)|0;
+    var w=canvas.width, h=canvas.height;
+    var imageData=ctx.createImageData(w,h);
+    var data=imageData.data;
+    for (var i=0;i<data.length;i+=4) {
+      if (Math.random()>0.30){ data[i+3]=0; continue; }
+      var base=(100+Math.random()*80)|0;
+      data[i]=Math.min(255,base+28); data[i+1]=Math.min(255,base+14);
+      data[i+2]=Math.max(0,base-18); data[i+3]=(28+Math.random()*20)|0;
     }
-    ctx.putImageData(imageData, 0, 0);
+    ctx.putImageData(imageData,0,0);
 
-    if (Math.random() < 0.015) scratches.push({
-      x: Math.random()*w, width: Math.random()*0.8+0.2,
-      alpha: 0.18+Math.random()*0.22, life:0, maxLife: Math.floor(Math.random()*5+2)
+    if (Math.random()<0.015) scratches.push({
+      x:Math.random()*w, width:Math.random()*0.8+0.2,
+      alpha:0.18+Math.random()*0.22, life:0, maxLife:Math.floor(Math.random()*5+2)
     });
-    scratches = scratches.filter(s => s.life < s.maxLife);
-    scratches.forEach(s => {
-      ctx.save(); ctx.globalAlpha = s.alpha*(1-s.life/s.maxLife);
+    scratches=scratches.filter(function(s){ return s.life<s.maxLife; });
+    scratches.forEach(function(s){
+      ctx.save(); ctx.globalAlpha=s.alpha*(1-s.life/s.maxLife);
       ctx.strokeStyle='rgba(255,220,140,1)'; ctx.lineWidth=s.width;
       ctx.beginPath(); ctx.moveTo(s.x,0);
       ctx.lineTo(s.x+(Math.random()-0.5)*2,h); ctx.stroke(); ctx.restore();
       s.life++;
     });
 
-    if (frame%45===0) flickerVal = 0.93+Math.random()*0.10;
-    else flickerVal += (1.0-flickerVal)*0.18;
-
+    if (frame%45===0) flickerVal=0.93+Math.random()*0.10;
+    else flickerVal+=(1.0-flickerVal)*0.18;
     if (Math.random()<0.004) jitterY=(Math.random()-0.5)*1.8;
     else jitterY*=0.5;
 
-    panel.style.filter=`contrast(1.08) saturate(0.88) sepia(0.22) brightness(${flickerVal.toFixed(3)})`;
-    panel.style.transform=`translateY(${jitterY.toFixed(2)}px)`;
-    grainAnim = requestAnimationFrame(tick);
+    panel.style.filter='contrast(1.08) saturate(0.88) sepia(0.22) brightness('+flickerVal.toFixed(3)+')';
+    panel.style.transform='translateY('+jitterY.toFixed(2)+'px)';
+    grainAnim=requestAnimationFrame(tick);
   }
   tick();
 }
 
 function stopFilmAnimation() {
-  if (grainAnim) { cancelAnimationFrame(grainAnim); grainAnim=null; }
-  const c = document.getElementById('grain-canvas');
+  if (grainAnim){ cancelAnimationFrame(grainAnim); grainAnim=null; }
+  var c=document.getElementById('grain-canvas');
   c.getContext('2d').clearRect(0,0,c.width,c.height);
 }
 
@@ -619,7 +552,7 @@ function stopFilmAnimation() {
 function toggleSmoke() {
   smokeMode = !smokeMode;
   document.getElementById('smoke-btn').classList.toggle('on', smokeMode);
-  const sc = document.getElementById('smoke-canvas');
+  var sc=document.getElementById('smoke-canvas');
   if (smokeMode) {
     resizeCanvases(); sc.classList.add('active');
     smokeParticles=[]; startSmokeAnimation();
@@ -629,246 +562,153 @@ function toggleSmoke() {
   }
 }
 
-/**
- * Convert a SMOKE_POINTS entry {x,y} (fraction of image content)
- * into canvas pixel coordinates, accounting for object-fit:contain letterboxing.
- */
 function smokeOriginToCanvas(pt, canvas) {
   if (!pt) return null;
-
-  const panel = document.getElementById('comic-panel');
-  const panelW = panel.offsetWidth  || canvas.width;
-  const panelH = panel.offsetHeight || canvas.height;
-
-  // Find the actual image element to get its natural dimensions
-  const imgs = panel.querySelectorAll('.panel-img');
-  const activeImg = imgs[currentIndex];
-  if (!activeImg) return null;
-
-  const natW = activeImg.naturalWidth  || panelW;
-  const natH = activeImg.naturalHeight || panelH;
-
-  // Compute rendered image dimensions (object-fit:contain inside panel)
-  const panelRatio = panelW / panelH;
-  const imgRatio   = natW   / natH;
-
-  let rendW, rendH, offX, offY;
-  if (imgRatio > panelRatio) {
-    // Image is wider relative to panel → letterbox top/bottom
-    rendW = panelW;
-    rendH = panelW / imgRatio;
-    offX  = 0;
-    offY  = (panelH - rendH) / 2;
-  } else {
-    // Image is taller relative to panel → pillarbox left/right
-    rendH = panelH;
-    rendW = panelH * imgRatio;
-    offX  = (panelW - rendW) / 2;
-    offY  = 0;
-  }
-
-  return {
-    x: offX + pt.x * rendW,
-    y: offY + pt.y * rendH,
-  };
+  var panel=document.getElementById('comic-panel');
+  var panelW=panel.offsetWidth||canvas.width;
+  var panelH=panel.offsetHeight||canvas.height;
+  var imgs=panel.querySelectorAll('.panel-img');
+  var img=imgs[currentIndex];
+  if (!img||!img.naturalWidth) return null;
+  var nw=img.naturalWidth, nh=img.naturalHeight;
+  var pr=panelW/panelH, ir=nw/nh;
+  var rw,rh,ox,oy;
+  if (ir>pr){ rw=panelW; rh=panelW/ir; ox=0;            oy=(panelH-rh)/2; }
+  else      { rh=panelH; rw=panelH*ir; ox=(panelW-rw)/2; oy=0; }
+  return { x:ox+pt.x*rw, y:oy+pt.y*rh };
 }
 
 function startSmokeAnimation() {
-  const canvas = document.getElementById('smoke-canvas');
-  const ctx = canvas.getContext('2d');
-
-  function spawnParticle(ox, oy) {
+  var canvas=document.getElementById('smoke-canvas');
+  var ctx=canvas.getContext('2d');
+  function spawn(ox,oy) {
     smokeParticles.push({
-      x:    ox + (Math.random()-0.5)*6,
-      y:    oy,
-      vx:   (Math.random()-0.5)*0.24,
-      vy:   -(0.24 + Math.random()*0.30),
-      r:    1.8 + Math.random()*2.4,
-      alpha: 0.11 + Math.random()*0.085,
-      life: 0,
-      maxLife: 90 + Math.floor(Math.random()*60),
-      dr:   0.036 + Math.random()*0.048,
+      x:ox+(Math.random()-0.5)*6, y:oy,
+      vx:(Math.random()-0.5)*0.24, vy:-(0.24+Math.random()*0.30),
+      r:1.8+Math.random()*2.4, alpha:0.11+Math.random()*0.085,
+      life:0, maxLife:90+Math.floor(Math.random()*60),
+      dr:0.036+Math.random()*0.048
     });
   }
-
   function tick() {
     if (!smokeMode) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    const origin = smokeOriginToCanvas(SMOKE_POINTS[currentIndex], canvas);
-    if (origin && Math.random() < 0.33) spawnParticle(origin.x, origin.y);
-
-    smokeParticles = smokeParticles.filter(p => p.life < p.maxLife);
-    smokeParticles.forEach(p => {
-      const prog = p.life / p.maxLife;
-      let a;
-      if      (prog < 0.15) a = p.alpha * (prog / 0.15);
-      else if (prog > 0.60) a = p.alpha * (1-(prog-0.60)/0.40);
-      else                   a = p.alpha;
-
-      const r = p.r + p.dr * p.life;
-      const grad = ctx.createRadialGradient(p.x,p.y,0, p.x,p.y,r);
-      grad.addColorStop(0,   `rgba(220,210,195,${a})`);
-      grad.addColorStop(0.5, `rgba(200,190,175,${a*0.6})`);
-      grad.addColorStop(1,   `rgba(180,170,155,0)`);
-
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    var o=smokeOriginToCanvas(SMOKE_POINTS[currentIndex],canvas);
+    if (o&&Math.random()<0.33) spawn(o.x,o.y);
+    smokeParticles=smokeParticles.filter(function(p){ return p.life<p.maxLife; });
+    smokeParticles.forEach(function(p) {
+      var prog=p.life/p.maxLife, a;
+      if      (prog<0.15) a=p.alpha*(prog/0.15);
+      else if (prog>0.60) a=p.alpha*(1-(prog-0.60)/0.40);
+      else                 a=p.alpha;
+      var r=p.r+p.dr*p.life;
+      var g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,r);
+      g.addColorStop(0,'rgba(220,210,195,'+a+')');
+      g.addColorStop(0.5,'rgba(200,190,175,'+(a*0.6)+')');
+      g.addColorStop(1,'rgba(180,170,155,0)');
       ctx.beginPath(); ctx.arc(p.x,p.y,r,0,Math.PI*2);
-      ctx.fillStyle=grad; ctx.fill();
-
-      p.vx += Math.sin(p.life*0.09)*0.025;
-      p.x  += p.vx; p.y += p.vy; p.vy *= 0.995; p.life++;
+      ctx.fillStyle=g; ctx.fill();
+      p.vx+=Math.sin(p.life*0.09)*0.025;
+      p.x+=p.vx; p.y+=p.vy; p.vy*=0.995; p.life++;
     });
-
-    smokeAnim = requestAnimationFrame(tick);
+    smokeAnim=requestAnimationFrame(tick);
   }
   tick();
 }
 
 function stopSmokeAnimation() {
-  if (smokeAnim) { cancelAnimationFrame(smokeAnim); smokeAnim=null; }
+  if (smokeAnim){ cancelAnimationFrame(smokeAnim); smokeAnim=null; }
   smokeParticles=[];
 }
 
-// ── RESIZE ──
 function resizeCanvases() {
-  const panel = document.getElementById('comic-panel');
-  const w = panel.offsetWidth||800, h = panel.offsetHeight||500;
-  ['grain-canvas','smoke-canvas'].forEach(id => {
-    const c=document.getElementById(id); c.width=w; c.height=h;
+  var panel=document.getElementById('comic-panel');
+  var w=panel.offsetWidth||800, h=panel.offsetHeight||500;
+  ['grain-canvas','smoke-canvas'].forEach(function(id){
+    var c=document.getElementById(id); c.width=w; c.height=h;
   });
 }
-window.addEventListener('resize', () => { if (filmMode||smokeMode) resizeCanvases(); });
 
-// ── KEYBOARD ──
-document.addEventListener('keydown', e => {
+document.addEventListener('keydown', function(e) {
   if (e.key==='ArrowRight') nudge(1);
   if (e.key==='ArrowLeft')  nudge(-1);
 });
 
-// ═══════════════════════════════════════════════════════════════
-//  CALIBRATION MODE  (?calibrate in URL)
-//  Shows each image fullscreen, user taps cigarette tip,
-//  coordinates recorded as % of image CONTENT (not panel/screen).
-//  At the end, displays a ready-to-paste JS config block.
-// ═══════════════════════════════════════════════════════════════
-let calIdx = 0;
-const calResults = []; // {x,y}|null per frame
+// ═══════════════════════════════════════
+//  CALIBRATION  (?calibrate in URL)
+// ═══════════════════════════════════════
+var calIdx=0, calResults=[], calPendingPin=null;
 
 function initCalibrate() {
-  // Hide normal viewer, show calibrate UI
-  document.querySelector('header').style.display = 'none';
-  document.getElementById('viewer-screen').style.display = 'none';
+  document.querySelector('header').style.display='none';
+  document.getElementById('viewer-screen').style.display='none';
   document.getElementById('calibrate-ui').classList.add('active');
-
-  IMAGE_FILES.forEach(() => calResults.push(null));
-  loadCalFrame(0);
-
+  IMAGE_FILES.forEach(function(){ calResults.push(null); });
   document.getElementById('cal-img-wrap').addEventListener('click', onCalTap);
+  calLoadFrame(0);
 }
 
-function loadCalFrame(idx) {
-  if (idx >= IMAGE_FILES.length) { showCalResults(); return; }
-  calIdx = idx;
-  document.getElementById('cal-img').src = IMAGE_FILES[idx];
-  document.getElementById('cal-frame-label').textContent =
-    `Frame ${idx+1} / ${IMAGE_FILES.length}`;
-  document.getElementById('cal-next-btn').textContent =
-    idx < IMAGE_FILES.length-1 ? 'Next →' : 'Done ✓';
-  document.getElementById('cal-coords').textContent = 'tap the cigarette tip ↑';
-  // Restore previous pin if re-visiting
-  const prev = calResults[idx];
-  if (prev) showCalPin(prev.rawX, prev.rawY);
-  else hideCal​Pin();
+function calLoadFrame(idx) {
+  if (idx>=IMAGE_FILES.length){ calShowResults(); return; }
+  calIdx=idx;
+  document.getElementById('cal-img').src=IMAGE_FILES[idx];
+  document.getElementById('cal-frame-label').textContent='Frame '+(idx+1)+' / '+IMAGE_FILES.length;
+  document.getElementById('cal-next-btn').textContent=idx<IMAGE_FILES.length-1?'Next':'Done';
+  document.getElementById('cal-coords').textContent='tap the cigarette tip in the image';
+  var prev=calResults[idx];
+  if (prev) calShowPin(prev.rawX,prev.rawY); else calHidePin();
 }
 
 function onCalTap(e) {
-  if (calIdx >= IMAGE_FILES.length) return;
-  const wrap = document.getElementById('cal-img-wrap');
-  const img  = document.getElementById('cal-img');
-  const wRect = wrap.getBoundingClientRect();
-
-  // clientX/Y relative to wrapper
-  const tapX = e.clientX - wRect.left;
-  const tapY = e.clientY - wRect.top;
-
-  // Find rendered image bounds inside wrapper (object-fit:contain)
-  const iRect = img.getBoundingClientRect();
-  const imgLeft = iRect.left - wRect.left;
-  const imgTop  = iRect.top  - wRect.top;
-  const imgW    = iRect.width;
-  const imgH    = iRect.height;
-
-  // Clamp to image bounds
-  const clampedX = Math.max(0, Math.min(imgW, tapX - imgLeft));
-  const clampedY = Math.max(0, Math.min(imgH, tapY - imgTop));
-
-  // Normalise to 0..1 relative to image content
-  const fracX = clampedX / imgW;
-  const fracY = clampedY / imgH;
-
-  calResults[calIdx] = { x: +fracX.toFixed(4), y: +fracY.toFixed(4), rawX: tapX, rawY: tapY };
-  showCalPin(tapX, tapY);
-  document.getElementById('cal-coords').textContent =
-    `x: ${fracX.toFixed(3)}  y: ${fracY.toFixed(3)}  (% of image content)`;
+  if (calIdx>=IMAGE_FILES.length) return;
+  var wrap=document.getElementById('cal-img-wrap');
+  var img=document.getElementById('cal-img');
+  var wRect=wrap.getBoundingClientRect();
+  var iRect=img.getBoundingClientRect();
+  var tapX=e.clientX-wRect.left, tapY=e.clientY-wRect.top;
+  var il=iRect.left-wRect.left, it=iRect.top-wRect.top;
+  var iw=iRect.width, ih=iRect.height;
+  var cx=Math.max(0,Math.min(iw,tapX-il));
+  var cy=Math.max(0,Math.min(ih,tapY-it));
+  var fx=cx/iw, fy=cy/ih;
+  calResults[calIdx]={x:+fx.toFixed(4),y:+fy.toFixed(4),rawX:tapX,rawY:tapY};
+  calShowPin(tapX,tapY);
+  document.getElementById('cal-coords').textContent='x: '+fx.toFixed(3)+'  y: '+fy.toFixed(3);
 }
 
-function showCalPin(px, py) {
-  const wrap = document.getElementById('cal-img-wrap');
-  const pin  = document.getElementById('cal-pin');
-  const wRect = wrap.getBoundingClientRect();
-  pin.style.display = 'block';
-  pin.style.left = px + 'px';
-  pin.style.top  = py + 'px';
+function calShowPin(px,py) {
+  var pin=document.getElementById('cal-pin');
+  pin.style.display='block'; pin.style.left=px+'px'; pin.style.top=py+'px';
 }
+function calHidePin() { document.getElementById('cal-pin').style.display='none'; }
+function calNext()    { calLoadFrame(calIdx+1); }
+function calSkip()    { calResults[calIdx]=null; calHidePin(); calLoadFrame(calIdx+1); }
 
-function hideCal​Pin() {
-  document.getElementById('cal-pin').style.display = 'none';
-}
-
-function calNext() {
-  // Save whatever was tapped (or null if skipped)
-  loadCalFrame(calIdx + 1);
-}
-
-function calSkip() {
-  calResults[calIdx] = null;
-  hideCal​Pin();
-  document.getElementById('cal-coords').textContent = 'skipped — no smoke on this frame';
-  loadCalFrame(calIdx + 1);
-}
-
-function showCalResults() {
-  // Build the paste-ready config
-  const lines = calResults.map((pt, i) => {
-    if (!pt) return `  null,   // frame ${i+1} — no smoke`;
-    return `  { x: ${pt.x}, y: ${pt.y} },  // frame ${i+1}`;
+function calShowResults() {
+  var lines=calResults.map(function(pt,i){
+    if (!pt) return '  null,         // frame '+(i+1);
+    return '  { x: '+pt.x+', y: '+pt.y+' },  // frame '+(i+1);
   });
-
-  const block =
-`const SMOKE_POINTS = [\n${lines.join('\n')}\n];`;
-
-  const box = document.getElementById('cal-output-box');
-  box.textContent = block;
-  box.classList.add('visible');
-
-  const copyBtn = document.getElementById('cal-copy-btn');
-  copyBtn.classList.add('visible');
-
-  document.getElementById('cal-frame-label').textContent = 'All done ✓';
-  document.getElementById('cal-next-btn').style.display  = 'none';
-  document.getElementById('cal-skip-btn').style.display  = 'none';
-  document.getElementById('cal-coords').textContent =
-    'Copy the block above and paste it into the SMOKE_POINTS section of this HTML file.';
-  hideCal​Pin();
+  var block='var SMOKE_POINTS = [\n'+lines.join('\n')+'\n];';
+  var box=document.getElementById('cal-output-box');
+  box.textContent=block; box.classList.add('visible');
+  document.getElementById('cal-copy-btn').classList.add('visible');
+  document.getElementById('cal-frame-label').textContent='All done';
+  document.getElementById('cal-next-btn').style.display='none';
+  document.getElementById('cal-skip-btn').style.display='none';
+  document.getElementById('cal-coords').textContent='Copy the block below and paste it into index.html, replacing the SMOKE_POINTS array. Then redeploy.';
+  calHidePin();
 }
 
 function calCopy() {
-  const text = document.getElementById('cal-output-box').textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.getElementById('cal-copy-btn');
-    btn.textContent = '✓ Copied!';
-    setTimeout(() => btn.textContent = '⎘ Copy Config', 2000);
-  });
+  var text=document.getElementById('cal-output-box').textContent;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function(){
+      var btn=document.getElementById('cal-copy-btn');
+      btn.textContent='Copied!';
+      setTimeout(function(){ btn.textContent='Copy Config'; },2000);
+    });
+  }
 }
 </script>
 </body>
